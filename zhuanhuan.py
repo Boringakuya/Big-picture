@@ -1,15 +1,7 @@
-import random,datetime,re,requests
+import re, requests
 import hashlib
-from nonebot import on_command
-from hoshino import R, Service, priv, util
-from hoshino.typing import CQEvent, MessageSegment
-import urllib.request
-from urllib.request import urlopen
-from nonebot import get_bot
 from hoshino import Service
 from hoshino.typing import HoshinoBot, CQEvent
-from quart import request
-import os
 sv = Service(name='zhuanhuan')
 path="D:/jqr2/Leize_bot-master/hoshino/modules/zhuanhuan/img"
 name =path+"/1.gif"
