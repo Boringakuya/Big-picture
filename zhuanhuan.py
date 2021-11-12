@@ -3,8 +3,8 @@ import hashlib
 from hoshino import Service
 from hoshino.typing import HoshinoBot, CQEvent
 sv = Service(name='zhuanhuan')
-path="D:/jqr2/Leize_bot-master/hoshino/modules/zhuanhuan/img"
-name =path+"/1.gif"
+path=os.path.join(os.path.dirname(__file__), "img/")
+name =path+"1.gif"
 def getdow(sss):
      img = requests.get(sss)
      f = open(name, mode="wb")
