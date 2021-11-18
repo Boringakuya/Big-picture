@@ -1,8 +1,6 @@
-import random, re, requests,time
-import hashlib
+import random, re, requests,time,os,hashlib
 from hoshino import Service
-from hoshino.typing import HoshinoBot, CQEvent
-import os
+from hoshino.typing import HoshinoBot, CQEvent,MessageSegment
 sv = Service(name='Big-picture')
 path=os.path.join(os.path.dirname(__file__), "img\\")
 path2=path+"image2.png"
@@ -51,4 +49,6 @@ async def sendXML2(bot: HoshinoBot, ev: CQEvent):
      getimg()
      md5=getmd5(path2)
      msg=getmsg(md5)
+     img=f"[CQ:image,file=file:///" + path2+ "]"#先发送一个小图 制造缓存 防止大图无法显示
+     await bot.send(ev, img)
      await bot.send(ev, f'[CQ:xml,data={msg}]')
