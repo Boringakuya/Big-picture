@@ -3,7 +3,7 @@ import hashlib
 from hoshino import Service
 from hoshino.typing import HoshinoBot, CQEvent
 import os
-sv = Service(name='zhuanhuan')
+sv = Service(name='Big-picture')
 path=os.path.join(os.path.dirname(__file__), "img\\")
 path2=path+"image2.png"
 def getimg():#网络获取 然后下载到本地
