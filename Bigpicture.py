@@ -3,20 +3,22 @@ from hoshino import Service
 from hoshino.typing import HoshinoBot, CQEvent,MessageSegment
 sv = Service(name='Big-picture')
 path=os.path.join(os.path.dirname(__file__), "img\\")
-path2=path+"image2.png"
-def getimg():#网络获取 然后下载到本地
+image_path='D:/jqr3/HoshinoBot-master/hoshino/res/img/setu'#本地发图文件夹
+bb=1
+def getimg(path2):#网络获取 然后下载到本地
      time.sleep(2)
      url='https://iw233.cn/API/Ghs.php'
      resp=requests.get(url)
      f = open(path2, mode="wb")
      f.write(resp.content)
      f.close()
+     return path2
      pass
-#def getpath():#本地图片使用 有问题
-     #files = os.listdir(image_path)
-     #rec = random.choice(files)
-     #print(image_path+"/"+rec)
-     #return image_path+"/"+rec
+def getpath():
+     files = os.listdir(image_path)
+     rec = random.choice(files)
+     print(image_path+"/"+rec)
+     return image_path+"/"+rec
 def getdow(sss,image):
      img = requests.get(sss)
      f = open(image, mode="wb")
@@ -46,9 +48,22 @@ async def sendXML(bot: HoshinoBot, ev: CQEvent):
      
 @sv.on_rex('来点超级好看的')
 async def sendXML2(bot: HoshinoBot, ev: CQEvent):
-     getimg()
-     md5=getmd5(path2)
+     global bb
+     bb=bb+1
+     path2=path+str(bb)+'.png'
+     path3=getimg(path2)#防止多次发送命令造成文件写入错误
+     md5=getmd5(path3)
      msg=getmsg(md5)
-     img=f"[CQ:image,file=file:///" + path2+ "]"#先发送一个小图 制造缓存 防止大图无法显示
+     img=f"[CQ:image,file=file:///" + path3+ "]"#先发送一个小图 制造缓存 防止大图无法显示
+     await bot.send(ev, img)
+     await bot.send(ev, f'[CQ:xml,data={msg}]')
+     os.remove(path3)
+     
+@sv.on_rex('来点本地超级好看的')
+async def sendXML3(bot: HoshinoBot, ev: CQEvent):
+     path4=getpath()
+     md5=getmd5(path4)
+     msg=getmsg(md5)
+     img=f"[CQ:image,file=file:///" + path4+ "]"#先发送一个小图 制造缓存 防止大图无法显示
      await bot.send(ev, img)
      await bot.send(ev, f'[CQ:xml,data={msg}]')
